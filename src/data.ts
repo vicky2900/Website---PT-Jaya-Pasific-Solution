@@ -89,7 +89,7 @@ export const COURSES: TrainingCourse[] = [
     description: 'Sertifikasi tertinggi bagi instruktur senior, konsultan korporat, dan head of learning development untuk mendesain kurikulum, strategi instruksional, serta standarisasi pelatihan berstandar BNSP.',
     location: 'Gedung Yustinus Lt. 14, Universitas Katolik Indonesia Atma Jaya, Jl. Jend. Sudirman No. 51, Jakarta Selatan',
     dates: '16 – 19 Oktober 2026',
-    instructor: 'Johannes Simanjuntak, SKM, M.Kes (Master Assessor BNSP)',
+    instructor: 'Johannes Simanjuntak, SKM, M.Kes (Master Trainer & Assessor BNSP)',
     personalPrice: 'Konsultasikan Program & Dapatkan Penawaran Terbaik',
     corporatePrice: 'Konsultasikan Program & Dapatkan Penawaran Terbaik',
     facilities: [
@@ -441,7 +441,7 @@ export const WORKFLOW_STEPS = [
     step: '02',
     title: 'Expert Consultation',
     subtitle: 'Diskusi Teknis Lead Assessor',
-    description: 'Sesi konsultasi awal bersama Master Assessor Johannes Simanjuntak & tim ahli untuk memetakan silabus spesifik dan target lulusan.',
+    description: 'Sesi konsultasi awal bersama Master Trainer & Assessor Johannes Simanjuntak & tim ahli untuk memetakan silabus spesifik dan target lulusan.',
   },
   {
     step: '03',

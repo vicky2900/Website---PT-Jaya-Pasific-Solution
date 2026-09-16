@@ -125,13 +125,22 @@ export const Hero: React.FC<HeroProps> = ({ onRequestProposal, onSelectCourse })
           transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
           className="lg:col-span-5 flex flex-col items-center w-full"
         >
-          <div className="w-full bg-white p-5 sm:p-6 rounded-2xl shadow-[0_12px_36px_rgba(23,59,53,0.1)] border-2 border-secondary/30 flex flex-col gap-4 relative">
-            <div className="self-end sm:absolute sm:top-4 sm:right-4 px-3 py-1 bg-secondary text-primary font-label-md text-[10px] sm:text-xs uppercase tracking-wider rounded-full font-bold flex items-center gap-1 shadow-2xs shrink-0">
-              <span className="material-symbols-outlined text-[14px] sm:text-[15px]">military_tech</span>
-              MASTER ASSESSOR
+          <div className="w-full bg-white p-5 sm:p-6 rounded-2xl shadow-[0_12px_36px_rgba(23,59,53,0.1)] border-2 border-secondary/30 flex flex-col gap-4">
+            
+            {/* Header row: Official Role Tag & Master Trainer Badge (no absolute overlap) */}
+            <div className="flex flex-wrap items-center justify-between gap-2.5 pb-3 border-b border-outline-variant/40">
+              <div className="flex items-center gap-1.5 text-secondary-dark font-label-md text-xs uppercase font-bold tracking-wider">
+                <span className="material-symbols-outlined text-[17px] text-primary">verified</span>
+                <span>Direktur &amp; Penguji BNSP</span>
+              </div>
+              <div className="px-3 py-1 bg-secondary text-primary font-label-md text-[11px] sm:text-xs uppercase tracking-wider rounded-full font-bold flex items-center gap-1.5 shadow-2xs shrink-0">
+                <span className="material-symbols-outlined text-[15px]">military_tech</span>
+                <span>Master Trainer &amp; Assessor BNSP</span>
+              </div>
             </div>
 
-            <div className="flex items-center gap-3.5 sm:gap-4 sm:pr-24">
+            {/* Profile Info: Photo, Name & Subtitle */}
+            <div className="flex items-center gap-3.5 sm:gap-4">
               <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden shrink-0 shadow-md ring-2 ring-secondary/50 bg-surface-container">
                 <img 
                   alt="Johannes Simanjuntak, SKM, M.Kes - Direktur & Penguji BNSP" 
@@ -141,14 +150,11 @@ export const Hero: React.FC<HeroProps> = ({ onRequestProposal, onSelectCourse })
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-label-md text-[11px] sm:text-xs text-secondary-dark uppercase font-bold tracking-wider">
-                  Direktur &amp; Penguji BNSP
-                </span>
                 <h2 className="font-headline-sm text-base sm:text-xl text-primary font-bold leading-snug">
                   Johannes Simanjuntak, SKM, M.Kes
                 </h2>
-                <p className="font-body-sm text-[11px] sm:text-sm text-on-surface-variant mt-0.5">
-                  Master Trainer BNSP RI &amp; Konsultan Senior K3 Nasional
+                <p className="font-body-sm text-[12px] sm:text-sm text-on-surface-variant font-medium mt-1 leading-relaxed">
+                  Master Trainer &amp; Asessor BNSP dan Konsultan Senior QHSE
                 </p>
               </div>
             </div>

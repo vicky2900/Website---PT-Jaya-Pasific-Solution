@@ -24,14 +24,14 @@ export const Header: React.FC<HeaderProps> = ({ onRequestProposal }) => {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { name: 'Beranda', href: '#', icon: 'home' },
-    { name: 'Program Pelatihan', href: '#marketplace', icon: 'school' },
-    { name: 'Layanan Konsultasi', href: '#layanan-inti', icon: 'verified_user' },
-    { name: 'Portofolio & Klien', href: '#portofolio-klien', icon: 'business' },
-    { name: 'Galeri Lapangan', href: '#galeri-lapangan', icon: 'photo_library' },
-    { name: 'Legalitas', href: '#legalitas', icon: 'gavel' },
-    { name: 'Lokasi', href: '#lokasi', icon: 'location_on' },
-    { name: 'Hubungi Kami', href: '#kontak-kami', icon: 'call' },
+    { name: 'Beranda', shortName: 'Beranda', href: '#', icon: 'home' },
+    { name: 'Program Pelatihan', shortName: 'Pelatihan', href: '#marketplace', icon: 'school' },
+    { name: 'Layanan Konsultasi', shortName: 'Konsultasi', href: '#layanan-inti', icon: 'verified_user' },
+    { name: 'Portofolio & Klien', shortName: 'Portofolio', href: '#portofolio-klien', icon: 'business' },
+    { name: 'Galeri Lapangan', shortName: 'Galeri', href: '#galeri-lapangan', icon: 'photo_library' },
+    { name: 'Legalitas', shortName: 'Legalitas', href: '#legalitas', icon: 'gavel' },
+    { name: 'Lokasi', shortName: 'Lokasi', href: '#lokasi', icon: 'location_on' },
+    { name: 'Hubungi Kami', shortName: 'Kontak', href: '#kontak-kami', icon: 'call' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -52,19 +52,19 @@ export const Header: React.FC<HeaderProps> = ({ onRequestProposal }) => {
   return (
     <>
       <header className="fixed top-0 left-0 w-full z-40 bg-primary shadow-[0_4px_24px_rgba(23,59,53,0.22)] border-b border-secondary/20">
-        {/* Main navigation bar (Top bar has been removed as requested) */}
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-[72px] flex items-center justify-between gap-3 sm:gap-6">
+        {/* Main navigation bar */}
+        <div className="w-full max-w-[1440px] mx-auto px-3 sm:px-5 lg:px-6 xl:px-8 h-16 sm:h-[72px] flex items-center justify-between gap-2 lg:gap-3 xl:gap-6">
           
-          {/* Logo & Brand Name */}
+          {/* Logo & Brand Name - Never truncated or clipped */}
           <a 
-            className="flex items-center gap-2.5 sm:gap-3 shrink-0 group" 
+            className="flex items-center gap-2 sm:gap-2.5 xl:gap-3 shrink-0 group select-none" 
             href="#"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden shrink-0 flex items-center justify-center p-0.5 ring-2 ring-secondary/50 shadow-md group-hover:ring-secondary transition-all bg-white/10">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 xl:w-11 xl:h-11 rounded-full overflow-hidden shrink-0 flex items-center justify-center p-0.5 ring-2 ring-secondary/50 shadow-md group-hover:ring-secondary transition-all bg-white/10">
               <img 
                 alt="PT Jaya Pasific Solution Logo" 
                 className="w-full h-full object-contain rounded-full" 
@@ -72,18 +72,18 @@ export const Header: React.FC<HeaderProps> = ({ onRequestProposal }) => {
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div className="flex flex-col">
-              <span className="font-headline-sm text-xs sm:text-sm font-bold tracking-wide text-white group-hover:text-secondary transition-colors line-clamp-1">
+            <div className="flex flex-col shrink-0">
+              <span className="font-headline-sm text-xs sm:text-[13px] xl:text-sm font-bold tracking-wide text-white group-hover:text-secondary transition-colors whitespace-nowrap">
                 PT JAYA PASIFIC SOLUTION
               </span>
-              <span className="font-label-sm text-[9px] sm:text-[10px] tracking-wider sm:tracking-widest text-[#E4BE68] uppercase font-semibold line-clamp-1">
+              <span className="font-label-sm text-[8px] sm:text-[9.5px] xl:text-[10px] tracking-wider sm:tracking-widest text-[#E4BE68] uppercase font-semibold whitespace-nowrap">
                 TRAINING &amp; MANAGEMENT CONSULTANT
               </span>
             </div>
           </a>
 
-          {/* Desktop Links (lg and xl screens) */}
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs xl:text-[13px] font-medium font-body-sm whitespace-nowrap">
+          {/* Desktop Links (Adaptive: concise labels on xl, full labels on 2xl to guarantee zero crowding) */}
+          <nav className="hidden xl:flex items-center gap-1 2xl:gap-3.5 text-xs xl:text-[12.5px] 2xl:text-[13px] font-medium font-body-sm whitespace-nowrap shrink-0">
             {navLinks.map((link, idx) => (
               <a
                 key={link.name}
@@ -91,53 +91,55 @@ export const Header: React.FC<HeaderProps> = ({ onRequestProposal }) => {
                 onClick={(e) => handleNavClick(e, link.href)}
                 className={
                   idx === 0
-                    ? "transition-colors py-1 text-secondary font-bold relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-secondary"
-                    : "text-white/90 hover:text-secondary transition-colors py-1"
+                    ? "transition-colors px-1.5 2xl:px-2 py-1 text-secondary font-bold relative after:content-[''] after:absolute after:bottom-0 after:left-1.5 2xl:after:left-2 after:right-1.5 2xl:after:right-2 after:h-0.5 after:bg-secondary"
+                    : "text-white/90 hover:text-secondary transition-colors px-1.5 2xl:px-2 py-1"
                 }
               >
-                {link.name}
+                <span className="hidden 2xl:inline">{link.name}</span>
+                <span className="2xl:hidden">{link.shortName}</span>
               </a>
             ))}
           </nav>
 
-          {/* Action Buttons & Hamburger (Garis Tiga) */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            <div className="h-6 w-px bg-white/15 mx-1 hidden lg:block"></div>
+          {/* Action Buttons & Hamburger (Garis Tiga) - Always fitted, never clipped */}
+          <div className="flex items-center gap-2 sm:gap-2.5 xl:gap-3 shrink-0">
+            <div className="h-6 w-px bg-white/15 mx-0.5 hidden xl:block"></div>
             
-            {/* WhatsApp Quick Link on desktop */}
+            {/* WhatsApp Quick Link (visible from md screens) */}
             <a 
-              className="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#102723] text-[#E4BE68] border border-[#E4BE68]/40 hover:bg-[#0c1e1b] font-body-sm text-xs font-semibold whitespace-nowrap transition-all shadow-sm" 
+              className="hidden md:inline-flex items-center gap-1.5 px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-lg bg-[#102723] text-[#E4BE68] border border-[#E4BE68]/40 hover:bg-[#0c1e1b] font-body-sm text-xs font-semibold whitespace-nowrap transition-all shadow-sm shrink-0" 
               href="https://wa.me/628111595122?text=Halo%20PT%20Jaya%20Pasific%20Solution,%20saya%20ingin%20konsultasi%20layanan%20K3." 
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
-              Konsultasi WA
+              <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse shrink-0"></span>
+              <span className="hidden 2xl:inline">Konsultasi </span>WA
             </a>
 
-            {/* Request Proposal Button - Desktop Only (Hidden on Mobile/Tablet so mobile has it inside sidebar drawer at the bottom) */}
+            {/* Request Proposal Button - Visible on tablet & desktop (sm and up) so mobile navbar stays uncluttered */}
             <button 
               onClick={onRequestProposal}
-              className="hidden lg:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#E4BE68] text-[#173B35] font-headline-sm text-xs font-bold hover:bg-[#d8b059] whitespace-nowrap transition-all shadow-sm cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 sm:px-3.5 xl:px-4 py-1.5 sm:py-2 rounded-lg bg-secondary text-primary hover:bg-secondary-light active:scale-95 font-headline-sm text-xs font-bold whitespace-nowrap transition-all shadow-sm cursor-pointer shrink-0"
+              title="Ajukan Permintaan Proposal Pelatihan / Konsultasi"
             >
-              <span className="material-symbols-outlined text-[16px]">send</span>
-              Request Proposal
+              <span className="material-symbols-outlined text-[16px] shrink-0">send</span>
+              <span>Request Proposal</span>
             </button>
 
-            {/* Mobile / Tablet Button Garis Tiga (Hamburger Menu) */}
+            {/* Mobile / Tablet / Laptop Hamburger Menu (Garis Tiga) - Guaranteed fully visible & never clipped */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 active:scale-95 text-white border border-secondary/40 transition-all cursor-pointer shadow-xs"
+              className="xl:hidden flex items-center justify-center gap-2 px-2.5 sm:px-3 h-9 sm:h-10 rounded-xl bg-white/10 hover:bg-white/15 active:scale-95 text-white border border-secondary/40 transition-all cursor-pointer shadow-xs shrink-0"
               aria-label="Toggle navigation menu"
               title="Menu Navigasi (Garis Tiga)"
             >
               {/* Distinct 3 horizontal lines (Button Garis Tiga) */}
-              <div className="flex flex-col justify-center items-center w-5 h-4 gap-1">
-                <span className={`block h-[2.5px] w-5 bg-secondary rounded-full transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`}></span>
-                <span className={`block h-[2.5px] w-5 bg-secondary rounded-full transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`}></span>
-                <span className={`block h-[2.5px] w-5 bg-secondary rounded-full transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`}></span>
+              <div className="flex flex-col justify-center items-center w-5 h-4 gap-1 shrink-0">
+                <span className={`block h-[2px] sm:h-[2.5px] w-5 bg-secondary rounded-full transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-[6px]' : ''}`}></span>
+                <span className={`block h-[2px] sm:h-[2.5px] w-5 bg-secondary rounded-full transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`}></span>
+                <span className={`block h-[2px] sm:h-[2.5px] w-5 bg-secondary rounded-full transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-[6px]' : ''}`}></span>
               </div>
-              <span className="font-label-md text-xs font-bold text-white tracking-wider uppercase">
+              <span className="font-label-md text-xs font-bold text-white tracking-wider uppercase hidden sm:inline">
                 {mobileMenuOpen ? 'Tutup' : 'Menu'}
               </span>
             </button>
@@ -145,9 +147,9 @@ export const Header: React.FC<HeaderProps> = ({ onRequestProposal }) => {
         </div>
       </header>
 
-      {/* Modern Slide-over Sidebar Drawer for Mobile & Tablet */}
+      {/* Modern Slide-over Sidebar Drawer for Mobile & Tablet & Laptop (< 1280px) */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 xl:hidden animate-in fade-in duration-200">
           {/* Backdrop overlay */}
           <div 
             className="fixed inset-0 bg-black/70 backdrop-blur-xs transition-opacity"
