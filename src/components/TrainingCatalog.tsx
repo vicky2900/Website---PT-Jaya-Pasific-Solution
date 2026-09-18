@@ -6,9 +6,10 @@ import { ALL_ADDITIONAL_SERVICES, ServiceItem } from '../data/allServices';
 interface TrainingCatalogProps {
   onSelectCourse: (courseId: string) => void;
   onRequestProposal: (courseTitle?: string) => void;
+  onOpenLightbox?: (imageUrl: string, title: string) => void;
 }
 
-export const TrainingCatalog: React.FC<TrainingCatalogProps> = ({ onSelectCourse, onRequestProposal }) => {
+export const TrainingCatalog: React.FC<TrainingCatalogProps> = ({ onSelectCourse, onRequestProposal, onOpenLightbox }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [visibleCount, setVisibleCount] = useState<number>(12);
@@ -504,6 +505,40 @@ export const TrainingCatalog: React.FC<TrainingCatalogProps> = ({ onSelectCourse
                   className="flex flex-col bg-white p-5 sm:p-6 rounded-2xl shadow-2xs justify-between gap-4 border border-outline-variant/60 hover:shadow-md hover:border-secondary transition-all"
                 >
                   <div className="flex flex-col gap-2">
+                    {/* Optional Official Flyer Preview */}
+                    {service.flyerImage && (
+                      <div 
+                        onClick={() => onOpenLightbox?.(service.flyerImage!, service.flyerTitle || service.title)}
+                        className="relative -mx-5 -mt-5 sm:-mx-6 sm:-mt-6 mb-2 rounded-t-2xl overflow-hidden cursor-pointer group/flyer border-b border-secondary/30 bg-primary/10"
+                        title="Klik untuk memperbesar contoh brosur/flyer resmi"
+                      >
+                        <div className="h-44 sm:h-52 w-full overflow-hidden relative">
+                          <img
+                            src={service.flyerImage}
+                            alt={service.title}
+                            className="w-full h-full object-cover object-top group-hover/flyer:scale-105 transition-transform duration-500"
+                            referrerPolicy="no-referrer"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/30 to-black/25 flex flex-col justify-between p-3.5">
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary text-primary font-headline-sm text-[10px] sm:text-[11px] font-bold shadow-md uppercase tracking-wider">
+                                <span className="material-symbols-outlined text-[13px]">verified</span>
+                                Contoh Brosur Resmi
+                              </span>
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-xs text-white text-[10.5px] font-semibold">
+                                <span className="material-symbols-outlined text-[13px]">zoom_in</span>
+                                Perbesar
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1.5 text-white text-xs font-bold drop-shadow-md">
+                              <span className="material-symbols-outlined text-secondary text-[16px]">photo_library</span>
+                              <span>Bimtek 1 Hari Full • Uji Kompetensi BNSP</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
                     {/* Badge & Duration */}
                     <div className="flex items-center justify-between gap-2">
                       <span className="px-2.5 py-0.5 rounded bg-primary/10 text-primary font-label-md text-[10px] sm:text-[11px] font-bold tracking-wide uppercase truncate max-w-[170px]">
@@ -538,6 +573,37 @@ export const TrainingCatalog: React.FC<TrainingCatalogProps> = ({ onSelectCourse
                         {service.categoryLabel}
                       </span>
                     </div>
+
+                    {/* Flexible Options Badges (Bimtek & BNSP) */}
+                    {(service.canBimtek || service.canBnsp) && (
+                      <div className="flex flex-wrap items-center gap-1.5 mt-1.5 pt-1 border-t border-outline-variant/40">
+                        {service.canBimtek && (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-300 text-[11px] font-bold">
+                            <span className="material-symbols-outlined text-[14px] text-emerald-600">check_circle</span>
+                            Bisa Bimtek (1 Hari Full)
+                          </span>
+                        )}
+                        {service.canBnsp && (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-amber-50 text-amber-900 border border-amber-300 text-[11px] font-bold">
+                            <span className="material-symbols-outlined text-[14px] text-amber-600">verified</span>
+                            Bisa Uji Kompetensi BNSP
+                          </span>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Additional Flexibility Notice Box */}
+                    {service.additionalInfo && (
+                      <div className="p-3 rounded-xl bg-secondary/10 border border-secondary/30 text-xs text-primary font-medium leading-relaxed flex items-start gap-2 mt-1">
+                        <span className="material-symbols-outlined text-secondary-dark text-[18px] shrink-0 mt-0.5">info</span>
+                        <div>
+                          <strong className="block text-primary font-bold text-[11px] uppercase tracking-wider mb-0.5">
+                            Skema Pelatihan:
+                          </strong>
+                          <span className="text-on-surface-variant leading-snug">{service.additionalInfo}</span>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Price Block & Action Button */}
@@ -548,18 +614,32 @@ export const TrainingCatalog: React.FC<TrainingCatalogProps> = ({ onSelectCourse
                         <span>Investasi Pelatihan</span>
                       </div>
                       <div className="font-headline-sm text-xs sm:text-sm font-bold text-primary leading-snug">
-                        Konsultasikan Program &amp; Dapatkan Penawaran Terbaik
+                        {service.priceNote || 'Konsultasikan Program & Dapatkan Penawaran Terbaik'}
                       </div>
                     </div>
-                    <button
-                      onClick={() => onRequestProposal(service.title)}
-                      className="w-full py-2.5 px-4 bg-primary hover:bg-primary-light text-white rounded-xl font-body-sm text-xs sm:text-sm font-bold transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap group"
-                    >
-                      <span className="material-symbols-outlined text-[17px] text-secondary group-hover:scale-110 transition-transform">
-                        request_quote
-                      </span>
-                      <span>Konsultasi Sekarang</span>
-                    </button>
+
+                    <div className={`grid ${service.flyerImage ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'} gap-2`}>
+                      {service.flyerImage && (
+                        <button
+                          type="button"
+                          onClick={() => onOpenLightbox?.(service.flyerImage!, service.flyerTitle || service.title)}
+                          className="py-2.5 px-3 bg-white hover:bg-secondary/15 text-primary border border-secondary/50 rounded-xl font-body-sm text-xs font-bold transition-all shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
+                          title="Lihat contoh brosur / flyer resmi"
+                        >
+                          <span className="material-symbols-outlined text-[16px] text-secondary-dark">visibility</span>
+                          <span>Lihat Contoh Brosur</span>
+                        </button>
+                      )}
+                      <button
+                        onClick={() => onRequestProposal(service.title)}
+                        className="w-full py-2.5 px-4 bg-primary hover:bg-primary-light text-white rounded-xl font-body-sm text-xs sm:text-sm font-bold transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap group"
+                      >
+                        <span className="material-symbols-outlined text-[17px] text-secondary group-hover:scale-110 transition-transform">
+                          request_quote
+                        </span>
+                        <span>Konsultasi Sekarang</span>
+                      </button>
+                    </div>
                   </div>
                 </motion.div>
               ))}

@@ -8,6 +8,12 @@ export interface ServiceItem {
   badge: string;
   duration: string;
   description: string;
+  flyerImage?: string;
+  flyerTitle?: string;
+  canBimtek?: boolean;
+  canBnsp?: boolean;
+  priceNote?: string;
+  additionalInfo?: string;
 }
 
 export const ALL_ADDITIONAL_SERVICES: ServiceItem[] = [
@@ -675,8 +681,14 @@ export const ALL_ADDITIONAL_SERVICES: ServiceItem[] = [
     title: 'Pelatihan Keamanan Pangan Berbasis HACCP (Hazard Analysis Critical Control Point)',
     titleEn: 'Food Safety Based On HACCP Training',
     badge: 'HACCP FOOD',
-    duration: '3 Hari + Ujikom',
-    description: 'Penerapan 7 prinsip dan 12 langkah HACCP untuk industri katering rumah sakit, manufaktur pangan, dan hotel.'
+    duration: '1 Hari (Bimtek) / 3 Hari (BNSP)',
+    description: 'Penerapan 7 prinsip dan 12 langkah HACCP untuk industri katering rumah sakit, manufaktur pangan, dan hotel.',
+    flyerImage: '/assets/flyer_bimtek_haccp.jpg?v=2026',
+    flyerTitle: 'Brosur Resmi: BIMTEK HACCP & Sertifikasi Uji Kompetensi BNSP - JP Solution',
+    canBimtek: true,
+    canBnsp: true,
+    priceNote: 'Bimtek • Tersedia Opsi Uji Kompetensi BNSP',
+    additionalInfo: 'Tersedia 2 pilihan skema: Bisa Bimbingan Teknis (Bimtek 1 Hari Penuh) bersertifikat JP Solution, dan juga bisa dengan Uji Kompetensi BNSP resmi.'
   },
 
   // --- KATEGORI 5: SKEMA PELATIH & INSTRUKTUR (KUALIFIKASI 3 SAMPAI 6) ---

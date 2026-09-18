@@ -75,6 +75,7 @@ export default function App() {
         <TrainingCatalog 
           onSelectCourse={handleSelectCourse} 
           onRequestProposal={handleOpenProposal} 
+          onOpenLightbox={handleOpenLightbox}
         />
 
         {/* 7. Corporate B2B Workflow (6-Step Timeline) */}

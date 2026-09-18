@@ -15,7 +15,7 @@ export const LegalityCompliance: React.FC = () => {
       tag: 'Nasional',
       title: 'Lisensi Asesor BNSP',
       desc: 'Dewan instruktur memiliki sertifikasi Asesor Kompetensi berlisensi Badan Nasional Sertifikasi Profesi.',
-      status: 'Status: Master Assessor',
+      status: 'Status: Assessor',
     },
     {
       icon: 'domain_verification',

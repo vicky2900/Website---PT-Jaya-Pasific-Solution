@@ -14,6 +14,7 @@ export const ASSETS = {
   portInspection: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBjBz-i_bcyg4bgIEHiqTDxFgGPeRhQIIrCJzxjvSVWVGlrIKx7LB8QPh6rGAitfoaWmKpGAVIAULoYSKHouqv_aQ_E3H4ljanti3SoiqOxOTOY4MkPyBvA-CqsNBn2GKwNG9Jk6z6JHfs-TmHgmvNNfb-ukUoHV-pfnaWsntb6Bw-ICmcKB2KTwiB6jQldgIoGTtNtXAP7Y_RCUi2oKnNF97YsfvEGurDiMlsNZVDjwDhc948Se6mOeQn6jrWJFeYfw0w',
   classroomWorkshop: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDILvyIg2N6-Uy1s3SWZ6uUVoskXrKjZXaPvv3JvlQc8_doMRec7zUqQvFDw5msNCeksLKdSigil_yPsMSEz7psf2SEJwHyR7GOn4bwFPwMzpGe7TkC09J2tGXWBRgZChO2a24vdx0-w2yf-5DlTWbROezJvwAgvkQFXra9Xrjj--p4HOvyjnW7-O4nQwwXHOAevtHTWkJHuDF_1p7mF6PkfVQu58Oi6SpbIG7khZzNgRHB1vchfUVYP4r57TW_l81p5RQ',
   officeBuilding: '/assets/office_building.jpg',
+  haccpFlyer: '/assets/flyer_bimtek_haccp.jpg',
 };
 
 export const COMPANY_INFO = {

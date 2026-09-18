@@ -95,7 +95,7 @@ export const OfficeLocation: React.FC<OfficeLocationProps> = ({ onRequestProposa
                       Jaya Pasific Solution
                     </h3>
                     <p className="font-label-md text-[11px] font-semibold text-secondary-dark uppercase tracking-wide">
-                      Kantor Operasional &amp; Lembaga Pelatihan K3
+                      Kantor Operasional Lembaga Training &amp; Consulting
                     </p>
                   </div>
                 </div>
