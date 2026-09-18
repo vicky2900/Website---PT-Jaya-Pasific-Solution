@@ -11,7 +11,7 @@ import {
   ShieldCheck,
   CheckCircle2
 } from 'lucide-react';
-import { COMPANY_INFO } from '../data';
+import { COMPANY_INFO, WA_ADMINS, getWhatsAppUrl } from '../data';
 
 interface FinalCtaProps {
   onRequestProposal: () => void;
@@ -94,26 +94,31 @@ Johannes Simanjuntak, SKM, M.Kes`;
               </p>
             </div>
 
-            {/* Direct Contact Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              
-              <a
-                href="https://wa.me/628111595122?text=Halo%20PT%20Jaya%20Pasific%20Solution,%20saya%20ingin%20konsultasi%20layanan%20K3"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-4 rounded-xl bg-[#0A1B2D] border border-[#1A365D] hover:border-emerald-500 transition-colors flex items-start gap-3 group"
-              >
-                <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform shrink-0">
-                  <MessageSquare className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-[11px] font-mono-tech text-slate-400 uppercase">WhatsApp Hotline</div>
-                  <div className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
-                    {COMPANY_INFO.phone2}
+            {/* Direct Contact Cards - Admin 1 & Admin 2 */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+              {WA_ADMINS.map((admin) => (
+                <a
+                  key={admin.id}
+                  href={getWhatsAppUrl(admin.waNumber, `Halo ${admin.name} PT Jaya Pasific Solution, saya ingin konsultasi layanan K3.`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-4 rounded-xl bg-[#0A1B2D] border border-[#1A365D] hover:border-emerald-500 transition-all flex items-start gap-3 group hover:bg-[#0d2238]"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform shrink-0">
+                    <MessageSquare className="w-5 h-5" />
                   </div>
-                  <div className="text-[11px] text-emerald-400 mt-0.5">Respon Cepat 24/7</div>
-                </div>
-              </a>
+                  <div>
+                    <div className="flex items-center gap-1.5 text-[11px] font-mono-tech text-slate-400 uppercase">
+                      <span>WhatsApp {admin.name}</span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    </div>
+                    <div className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
+                      {admin.phone}
+                    </div>
+                    <div className="text-[11px] text-slate-300 mt-0.5">{admin.description}</div>
+                  </div>
+                </a>
+              ))}
 
               <a
                 href={`tel:${COMPANY_INFO.phone1.replace(/[^0-9]/g, '')}`}
@@ -123,7 +128,7 @@ Johannes Simanjuntak, SKM, M.Kes`;
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-[11px] font-mono-tech text-slate-400 uppercase">Direct Call (Telepon)</div>
+                  <div className="text-[11px] font-mono-tech text-slate-400 uppercase">Direct Call Kantor</div>
                   <div className="text-sm font-bold text-white group-hover:text-slate-200 transition-colors">
                     {COMPANY_INFO.phone1}
                   </div>
@@ -133,22 +138,19 @@ Johannes Simanjuntak, SKM, M.Kes`;
 
               <a
                 href={`mailto:${COMPANY_INFO.email}`}
-                className="p-4 rounded-xl bg-[#0A1B2D] border border-[#1A365D] hover:border-slate-500 transition-colors flex items-start gap-3 group sm:col-span-2"
+                className="p-4 rounded-xl bg-[#0A1B2D] border border-[#1A365D] hover:border-slate-500 transition-colors flex items-start gap-3 group"
               >
                 <div className="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 group-hover:scale-105 transition-transform shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-[11px] font-mono-tech text-slate-400 uppercase">Email Korespondensi Resmi</div>
-                  <div className="text-sm font-bold text-white">
+                  <div className="text-[11px] font-mono-tech text-slate-400 uppercase">Email Resmi</div>
+                  <div className="text-sm font-bold text-white truncate max-w-[200px]">
                     {COMPANY_INFO.email}
                   </div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">
-                    Untuk Pengiriman TOR / RKS / Permintaan Penawaran Tender
-                  </div>
+                  <div className="text-[11px] text-slate-400 mt-0.5">Tanggapan 1x24 Jam Kerja</div>
                 </div>
               </a>
-
             </div>
 
             {/* Office Address Bar */}

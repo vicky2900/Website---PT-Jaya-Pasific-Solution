@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { COMPANY_INFO, ASSETS } from '../data';
+import { COMPANY_INFO, ASSETS, WA_ADMINS, getWhatsAppUrl } from '../data';
 
 interface OfficeLocationProps {
   onRequestProposal?: (topic?: string) => void;
@@ -165,21 +165,30 @@ export const OfficeLocation: React.FC<OfficeLocationProps> = ({ onRequestProposa
                     <span className="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">
                       Kontak Langsung
                     </span>
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
                       <a 
                         href="tel:08111595122" 
                         className="text-primary hover:text-secondary-dark font-bold underline transition-colors"
                       >
-                        0811-1595-122
+                        0811-1595-122 (Call)
                       </a>
                       <a 
-                        href="https://wa.me/628111595122?text=Halo%20Admin%20PT%20Jaya%20Pasific%20Solution,%20saya%20ingin%20berkunjung%20ke%20kantor." 
+                        href={getWhatsAppUrl(WA_ADMINS[0].waNumber, 'Halo Admin 1 PT Jaya Pasific Solution, saya ingin berkunjung ke kantor.')}
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="text-emerald-700 hover:text-emerald-800 font-bold inline-flex items-center gap-1 transition-colors"
                       >
                         <span className="material-symbols-outlined text-[15px]">chat</span>
-                        WhatsApp Admin
+                        WA Admin 1 ({WA_ADMINS[0].phone})
+                      </a>
+                      <a 
+                        href={getWhatsAppUrl(WA_ADMINS[1].waNumber, 'Halo Admin 2 PT Jaya Pasific Solution, saya ingin berkunjung ke kantor.')}
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-emerald-700 hover:text-emerald-800 font-bold inline-flex items-center gap-1 transition-colors"
+                      >
+                        <span className="material-symbols-outlined text-[15px]">chat</span>
+                        WA Admin 2 ({WA_ADMINS[1].phone})
                       </a>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, 
   Calendar, 
@@ -11,6 +11,7 @@ import {
   FileText
 } from 'lucide-react';
 import { TrainingCourse } from '../types';
+import { WA_ADMINS, getWhatsAppUrl } from '../data';
 
 interface CourseModalProps {
   course: TrainingCourse | null;
@@ -19,6 +20,12 @@ interface CourseModalProps {
 }
 
 export const CourseModal: React.FC<CourseModalProps> = ({ course, onClose, onRequestProposal }) => {
+  const [showWaOptions, setShowWaOptions] = useState(false);
+
+  useEffect(() => {
+    setShowWaOptions(false);
+  }, [course]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -176,25 +183,65 @@ export const CourseModal: React.FC<CourseModalProps> = ({ course, onClose, onReq
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-2 border-t border-white/15">
-              <button
-                onClick={() => {
-                  onClose();
-                  onRequestProposal(course.title);
-                }}
-                className="flex-1 px-5 py-2.5 rounded-xl bg-secondary hover:bg-secondary-light text-primary text-xs sm:text-sm font-bold transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
-              >
-                <FileText className="w-4 h-4" />
-                <span>Konsultasi Sekarang</span>
-              </button>
+            <div className="space-y-2 pt-2 border-t border-white/15">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                <button
+                  onClick={() => {
+                    onClose();
+                    onRequestProposal(course.title);
+                  }}
+                  className="flex-1 px-5 py-2.5 rounded-xl bg-secondary hover:bg-secondary-light text-primary text-xs sm:text-sm font-bold transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>Konsultasi Sekarang</span>
+                </button>
 
-              <button
-                onClick={handleRegisterWhatsapp}
-                className="px-4 py-2.5 rounded-xl border border-white/30 hover:bg-white/10 text-white text-xs sm:text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap flex items-center justify-center gap-2"
-              >
-                <MessageSquare className="w-4 h-4" />
-                <span>Chat WhatsApp</span>
-              </button>
+                <button
+                  onClick={() => setShowWaOptions(!showWaOptions)}
+                  className="px-4 py-2.5 rounded-xl border border-white/30 hover:bg-white/10 text-white text-xs sm:text-sm font-semibold transition-colors cursor-pointer whitespace-nowrap flex items-center justify-center gap-2"
+                >
+                  <MessageSquare className="w-4 h-4 text-secondary" />
+                  <span>Chat WhatsApp</span>
+                  <span className="text-[10px] bg-emerald-500 text-white px-1.5 py-0.5 rounded-full font-mono-tech font-bold">
+                    Pilih Admin
+                  </span>
+                </button>
+              </div>
+
+              {/* 2 Admin Options Toggle */}
+              {showWaOptions && (
+                <div className="p-3 bg-white/10 rounded-xl border border-white/20 space-y-2 animate-in fade-in duration-150">
+                  <div className="text-[11px] font-mono-tech uppercase font-bold text-secondary text-center">
+                    Pilih Nomor Admin WhatsApp untuk Pendaftaran:
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {WA_ADMINS.map((admin) => (
+                      <a
+                        key={admin.id}
+                        href={getWhatsAppUrl(
+                          admin.waNumber,
+                          `Halo ${admin.name} PT Jaya Pasific Solution, saya ingin mendaftar program:\n*${course.title}*\nKode: ${course.code}\nJadwal: ${course.dates}\nLokasi: ${course.location}\n\nMohon informasi formulir pendaftaran dan kuota.`
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2.5 rounded-lg bg-black/20 hover:bg-black/35 text-white border border-white/20 flex items-center justify-between text-xs transition-colors group"
+                      >
+                        <div>
+                          <div className="font-bold text-secondary-light flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            {admin.name}
+                          </div>
+                          <div className="font-mono-tech text-[11px] text-white/90 font-bold">{admin.phone}</div>
+                          <div className="text-[9.5px] text-white/70 line-clamp-1">{admin.description}</div>
+                        </div>
+                        <span className="px-2 py-1 bg-emerald-600 group-hover:bg-emerald-500 rounded text-[10px] font-bold shrink-0">
+                          Chat &rarr;
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

@@ -5,9 +5,10 @@ import { ASSETS } from '../data';
 interface HeroProps {
   onRequestProposal: () => void;
   onSelectCourse: (courseId: string) => void;
+  onOpenWhatsApp?: (message?: string, title?: string) => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onRequestProposal, onSelectCourse }) => {
+export const Hero: React.FC<HeroProps> = ({ onRequestProposal, onSelectCourse, onOpenWhatsApp }) => {
   return (
     <section className="w-full py-10 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-surface via-background to-surface-container relative overflow-hidden border-b border-outline-variant/50">
       <div className="absolute -top-28 right-0 w-[550px] h-[550px] bg-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -180,15 +181,23 @@ export const Hero: React.FC<HeroProps> = ({ onRequestProposal, onSelectCourse })
                 <span>Jadwal ToT Level 4 &amp; 6 Aktif</span>
               </div>
               
-              <a 
-                className="text-label-md font-bold text-primary hover:text-secondary-dark inline-flex items-center gap-1 text-xs sm:text-sm group" 
-                href="https://wa.me/628111595122?text=Halo%20Pak%20Johannes,%20saya%20tertarik%20dengan%20jadwal%20Training%20of%20Trainer%20BNSP." 
-                target="_blank"
-                rel="noopener noreferrer"
+              <button 
+                type="button"
+                onClick={() => {
+                  if (onOpenWhatsApp) {
+                    onOpenWhatsApp(
+                      'Halo PT Jaya Pasific Solution, saya tertarik dengan jadwal Training of Trainer (ToT) BNSP. Mohon informasi kuota dan persyaratannya.',
+                      'Konsultasi Jadwal ToT BNSP Level 4 & 6'
+                    );
+                  } else {
+                    window.open('https://wa.me/628111595122?text=Halo%20Pak%20Johannes,%20saya%20tertarik%20dengan%20jadwal%20Training%20of%20Trainer%20BNSP.', '_blank');
+                  }
+                }}
+                className="text-label-md font-bold text-primary hover:text-secondary-dark inline-flex items-center gap-1 text-xs sm:text-sm group cursor-pointer" 
               >
-                Konsultasi Langsung 
+                <span>Konsultasi Langsung (Pilih Admin)</span>
                 <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-              </a>
+              </button>
             </div>
           </div>
         </motion.div>

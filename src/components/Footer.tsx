@@ -1,5 +1,5 @@
 import React from 'react';
-import { ASSETS, COMPANY_INFO } from '../data';
+import { ASSETS, COMPANY_INFO, WA_ADMINS, getWhatsAppUrl } from '../data';
 
 interface FooterProps {
   onRequestProposal: () => void;
@@ -75,16 +75,25 @@ export const Footer: React.FC<FooterProps> = ({ onRequestProposal }) => {
               <div className="pt-2 flex flex-col gap-1.5">
                 <a className="hover:text-secondary flex items-center gap-2 transition-colors" href="tel:08111595122">
                   <span className="material-symbols-outlined text-[16px] text-secondary">call</span> 
-                  0811-1595-122
+                  0811-1595-122 (Telepon Kantor)
                 </a>
                 <a 
                   className="hover:text-secondary flex items-center gap-2 transition-colors" 
-                  href="https://wa.me/628111595122" 
+                  href={getWhatsAppUrl(WA_ADMINS[0].waNumber, 'Halo Admin 1 PT Jaya Pasific Solution, saya ingin konsultasi layanan K3.')}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span className="material-symbols-outlined text-[16px] text-secondary">chat</span> 
-                  0811-1595-122 (WhatsApp)
+                  <span className="material-symbols-outlined text-[16px] text-emerald-400">chat</span> 
+                  {WA_ADMINS[0].phone} (WhatsApp Admin 1)
+                </a>
+                <a 
+                  className="hover:text-secondary flex items-center gap-2 transition-colors" 
+                  href={getWhatsAppUrl(WA_ADMINS[1].waNumber, 'Halo Admin 2 PT Jaya Pasific Solution, saya ingin konsultasi layanan K3.')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="material-symbols-outlined text-[16px] text-emerald-400">chat</span> 
+                  {WA_ADMINS[1].phone} (WhatsApp Admin 2)
                 </a>
                 <a className="hover:text-secondary flex items-center gap-2 transition-colors" href="mailto:jayapasificsolution90@gmail.com">
                   <span className="material-symbols-outlined text-[16px] text-secondary">mail</span> 

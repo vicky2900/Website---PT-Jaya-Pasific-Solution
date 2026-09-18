@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Send, CheckCircle2, MessageSquare, ShieldCheck, Building2 } from 'lucide-react';
+import { WA_ADMINS, getWhatsAppUrl } from '../data';
 
 interface ProposalModalProps {
   isOpen: boolean;
@@ -19,7 +20,7 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, p
   const [locationPreference, setLocationPreference] = useState('');
   const [notes, setNotes] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [whatsappUrl, setWhatsappUrl] = useState('');
+  const [proposalMessage, setProposalMessage] = useState('');
 
   useEffect(() => {
     if (prefilledTopic) {
@@ -62,9 +63,7 @@ export const ProposalModal: React.FC<ProposalModalProps> = ({ isOpen, onClose, p
 --------------------------------------------------
 _Dikirim via Web Portal PT Jaya Pasific Solution_`;
 
-    const encoded = encodeURIComponent(formattedMessage);
-    const waLink = `https://wa.me/628111595122?text=${encoded}`;
-    setWhatsappUrl(waLink);
+    setProposalMessage(formattedMessage);
     setSubmitted(true);
   };
 
@@ -350,23 +349,50 @@ _Dikirim via Web Portal PT Jaya Pasific Solution_`;
                 <div><strong>Format:</strong> {programType} ({participants})</div>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-primary hover:bg-primary-light text-white text-xs font-bold tracking-wide transition-all shadow-sm flex items-center justify-center gap-2"
-                >
-                  <MessageSquare className="w-4 h-4 text-secondary" />
-                  <span>Kirim ke WhatsApp Resmi Sekarang</span>
-                </a>
+              <div className="space-y-3 pt-2 max-w-md mx-auto">
+                <div className="text-[11px] font-mono-tech text-on-surface-variant font-bold uppercase tracking-wider text-center">
+                  Pilih Admin WhatsApp untuk Mengirim Proposal:
+                </div>
 
-                <button
-                  onClick={resetAndClose}
-                  className="w-full sm:w-auto px-4 py-3 rounded-xl border border-outline-variant/80 text-xs font-semibold text-primary hover:bg-surface transition-colors cursor-pointer"
-                >
-                  Tutup
-                </button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {WA_ADMINS.map((admin) => (
+                    <a
+                      key={admin.id}
+                      href={getWhatsAppUrl(admin.waNumber, proposalMessage)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-xl bg-primary hover:bg-primary-light text-white transition-all shadow-sm flex flex-col items-start gap-1 group border border-secondary/30 text-left"
+                    >
+                      <div className="flex items-center justify-between w-full">
+                        <span className="text-xs font-bold text-secondary flex items-center gap-1.5">
+                          <MessageSquare className="w-3.5 h-3.5" />
+                          {admin.name}
+                        </span>
+                        <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 font-mono-tech font-bold">
+                          Online
+                        </span>
+                      </div>
+                      <div className="text-[12px] font-mono-tech font-bold text-white">
+                        {admin.phone}
+                      </div>
+                      <div className="text-[10px] text-white/70 line-clamp-1">
+                        {admin.description}
+                      </div>
+                      <div className="mt-1.5 w-full py-1 rounded bg-secondary text-primary text-center text-[10.5px] font-bold group-hover:bg-secondary-light transition-colors">
+                        Kirim ke {admin.name} &rarr;
+                      </div>
+                    </a>
+                  ))}
+                </div>
+
+                <div className="pt-2 text-center">
+                  <button
+                    onClick={resetAndClose}
+                    className="px-5 py-2.5 rounded-xl border border-outline-variant/80 text-xs font-semibold text-primary hover:bg-surface transition-colors cursor-pointer"
+                  >
+                    Tutup Formulir
+                  </button>
+                </div>
               </div>
             </div>
           )}

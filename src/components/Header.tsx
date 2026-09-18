@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ASSETS, COMPANY_INFO } from '../data';
+import React, { useState, useEffect, useRef } from 'react';
+import { ASSETS, COMPANY_INFO, WA_ADMINS, getWhatsAppUrl } from '../data';
 
 interface HeaderProps {
   onRequestProposal: () => void;
@@ -7,6 +7,19 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ onRequestProposal }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [waDropdownOpen, setWaDropdownOpen] = useState(false);
+  const waDropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close WA dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (waDropdownRef.current && !waDropdownRef.current.contains(e.target as Node)) {
+        setWaDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Close mobile menu on Escape key press
   useEffect(() => {
@@ -105,16 +118,71 @@ export const Header: React.FC<HeaderProps> = ({ onRequestProposal }) => {
           <div className="flex items-center gap-2 sm:gap-2.5 xl:gap-3 shrink-0">
             <div className="h-6 w-px bg-white/15 mx-0.5 hidden xl:block"></div>
             
-            {/* WhatsApp Quick Link (visible from md screens) */}
-            <a 
-              className="hidden md:inline-flex items-center gap-1.5 px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-lg bg-[#102723] text-[#E4BE68] border border-[#E4BE68]/40 hover:bg-[#0c1e1b] font-body-sm text-xs font-semibold whitespace-nowrap transition-all shadow-sm shrink-0" 
-              href="https://wa.me/628111595122?text=Halo%20PT%20Jaya%20Pasific%20Solution,%20saya%20ingin%20konsultasi%20layanan%20K3." 
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse shrink-0"></span>
-              <span className="hidden 2xl:inline">Konsultasi </span>WA
-            </a>
+            {/* WhatsApp Quick Link with 2 Admin Dropdown (visible from md screens) */}
+            <div className="relative hidden md:block" ref={waDropdownRef}>
+              <button 
+                type="button"
+                onClick={() => setWaDropdownOpen(!waDropdownOpen)}
+                className="inline-flex items-center gap-1.5 px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-lg bg-[#102723] text-[#E4BE68] border border-[#E4BE68]/40 hover:bg-[#0c1e1b] font-body-sm text-xs font-semibold whitespace-nowrap transition-all shadow-sm shrink-0 cursor-pointer" 
+                title="Pilih Nomor WhatsApp Admin 1 atau Admin 2"
+                aria-expanded={waDropdownOpen}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse shrink-0"></span>
+                <span className="hidden 2xl:inline">Konsultasi </span>WA
+                <span className="material-symbols-outlined text-[15px] text-secondary transition-transform duration-200" style={{ transform: waDropdownOpen ? 'rotate(180deg)' : 'none' }}>
+                  expand_more
+                </span>
+              </button>
+
+              {/* Dropdown Menu for Admin 1 & Admin 2 */}
+              {waDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-secondary/30 p-2.5 z-50 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="px-2.5 py-1.5 text-[10px] font-mono-tech uppercase font-bold text-primary/70 border-b border-outline-variant/40 flex items-center justify-between mb-1.5">
+                    <span>PILIH NOMOR ADMIN WHATSAPP</span>
+                    <span className="flex items-center gap-1 text-emerald-600 font-bold text-[9.5px]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                      Online
+                    </span>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    {WA_ADMINS.map((admin) => (
+                      <a
+                        key={admin.id}
+                        href={getWhatsAppUrl(admin.waNumber, `Halo ${admin.name} PT Jaya Pasific Solution, saya ingin konsultasi layanan pelatihan/sertifikasi K3.`)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setWaDropdownOpen(false)}
+                        className="flex items-center justify-between p-2.5 rounded-xl hover:bg-emerald-50/80 border border-outline-variant/40 hover:border-emerald-300 transition-all group/item"
+                      >
+                        <div className="space-y-0.5">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs font-bold text-primary group-hover/item:text-emerald-800">
+                              {admin.name}
+                            </span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-100 text-emerald-800 font-bold">
+                              Aktif
+                            </span>
+                          </div>
+                          <div className="text-[11.5px] font-mono-tech font-bold text-primary">
+                            {admin.phone}
+                          </div>
+                          <div className="text-[10px] text-on-surface-variant line-clamp-1">
+                            {admin.description}
+                          </div>
+                        </div>
+                        <span className="w-7 h-7 rounded-lg bg-emerald-600 group-hover/item:bg-emerald-700 text-white flex items-center justify-center shrink-0 shadow-2xs group-hover/item:scale-105 transition-transform">
+                          <span className="material-symbols-outlined text-[15px]">chat</span>
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                  <div className="mt-2 pt-1.5 px-2 text-[10px] text-center text-on-surface-variant/80 border-t border-outline-variant/40">
+                    Respon Cepat Tim CS PT Jaya Pasific Solution
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* Request Proposal Button - Visible on tablet & desktop (sm and up) so mobile navbar stays uncluttered */}
             <button 
@@ -234,15 +302,32 @@ export const Header: React.FC<HeaderProps> = ({ onRequestProposal }) => {
                 <span>Request Proposal Korporat</span>
               </button>
 
-              <a
-                href="https://wa.me/628111595122?text=Halo%20PT%20Jaya%20Pasific%20Solution,%20saya%20ingin%20konsultasi%20layanan%20K3."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 rounded-xl bg-[#102723] hover:bg-[#0c1e1b] text-secondary border border-secondary/40 font-bold text-xs flex items-center justify-center gap-2 transition-all"
-              >
-                <span className="material-symbols-outlined text-[18px]">chat</span>
-                <span>Chat WhatsApp: 0811-1595-122</span>
-              </a>
+              {/* 2 Admin WhatsApp Buttons */}
+              <div className="space-y-2 pt-1">
+                <div className="text-[10px] font-mono-tech text-secondary/90 uppercase font-bold text-center tracking-wider">
+                  Hubungi Admin WhatsApp (Pilih Salah Satu):
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {WA_ADMINS.map((admin) => (
+                    <a
+                      key={admin.id}
+                      href={getWhatsAppUrl(admin.waNumber, `Halo ${admin.name} PT Jaya Pasific Solution, saya ingin konsultasi layanan pelatihan/sertifikasi K3.`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="py-2.5 px-3 rounded-xl bg-[#102723] hover:bg-[#0c1e1b] text-secondary border border-secondary/40 font-bold text-xs flex items-center justify-between transition-all group"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <div className="text-left">
+                          <div className="text-[11px] text-white/90 font-semibold">{admin.name}</div>
+                          <div className="text-[11.5px] font-mono-tech text-secondary font-bold">{admin.phone}</div>
+                        </div>
+                      </div>
+                      <span className="material-symbols-outlined text-[17px] text-emerald-400 group-hover:scale-110 transition-transform">chat</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
 
               <div className="pt-1 text-center text-[10px] text-white/50">
                 Hotline: {COMPANY_INFO.phone1} • PJK3 Kemnaker RI &amp; BNSP

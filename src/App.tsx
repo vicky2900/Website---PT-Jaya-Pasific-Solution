@@ -14,6 +14,7 @@ import { Footer } from './components/Footer';
 import { ProposalModal } from './components/ProposalModal';
 import { CourseModal } from './components/CourseModal';
 import { ImageLightboxModal } from './components/ImageLightboxModal';
+import { WhatsAppContactModal } from './components/WhatsAppContactModal';
 import { StickyWhatsApp } from './components/StickyWhatsApp';
 import { COURSES } from './data';
 import { TrainingCourse } from './types';
@@ -23,10 +24,23 @@ export default function App() {
   const [selectedCourseForProposal, setSelectedCourseForProposal] = useState<string>('');
   const [activeCourseDetail, setActiveCourseDetail] = useState<TrainingCourse | null>(null);
   const [lightboxImage, setLightboxImage] = useState<{ url: string; title: string } | null>(null);
+  const [waModalState, setWaModalState] = useState<{
+    isOpen: boolean;
+    defaultMessage?: string;
+    contextTitle?: string;
+  }>({ isOpen: false });
 
   const handleOpenProposal = (courseTitle?: string) => {
     setSelectedCourseForProposal(courseTitle || '');
     setProposalModalOpen(true);
+  };
+
+  const handleOpenWhatsApp = (defaultMessage?: string, contextTitle?: string) => {
+    setWaModalState({
+      isOpen: true,
+      defaultMessage,
+      contextTitle,
+    });
   };
 
   const handleSelectCourse = (courseId: string) => {
@@ -60,6 +74,7 @@ export default function App() {
         <Hero 
           onRequestProposal={() => handleOpenProposal()} 
           onSelectCourse={handleSelectCourse} 
+          onOpenWhatsApp={handleOpenWhatsApp}
         />
 
         {/* 4. Trust Industry Sectors (Mining, Healthcare, Construction, Maritime, etc.) */}
@@ -126,6 +141,13 @@ export default function App() {
         imageUrl={lightboxImage?.url || null} 
         title={lightboxImage?.title || ''} 
         onClose={() => setLightboxImage(null)} 
+      />
+
+      <WhatsAppContactModal 
+        isOpen={waModalState.isOpen}
+        onClose={() => setWaModalState((prev) => ({ ...prev, isOpen: false }))}
+        defaultMessage={waModalState.defaultMessage}
+        contextTitle={waModalState.contextTitle}
       />
     </div>
   );

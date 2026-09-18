@@ -34,6 +34,35 @@ export const COMPANY_INFO = {
   npwp: '61.782.910.4-411.000 (PKP Terdaftar)',
 };
 
+export interface WhatsAppAdmin {
+  id: string;
+  name: string;
+  phone: string;
+  waNumber: string;
+  description: string;
+}
+
+export const WA_ADMINS: WhatsAppAdmin[] = [
+  {
+    id: 'admin1',
+    name: 'Admin 1',
+    phone: '0811-1595-122',
+    waNumber: '628111595122',
+    description: 'Layanan Bimtek, Konsultasi & Jadwal Pelatihan',
+  },
+  {
+    id: 'admin2',
+    name: 'Admin 2',
+    phone: '0812-8829-5950',
+    waNumber: '6281288295950',
+    description: 'Uji Kompetensi BNSP, Sertifikasi & Corporate B2B',
+  },
+];
+
+export const getWhatsAppUrl = (waNumber: string, message: string): string => {
+  return `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+};
+
 export const COURSES: TrainingCourse[] = [
   {
     id: 'ak3u-kemnaker-palembang',
