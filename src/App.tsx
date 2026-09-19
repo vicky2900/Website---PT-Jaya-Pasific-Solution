@@ -84,6 +84,7 @@ export default function App() {
         <CoreServices 
           onRequestProposal={() => handleOpenProposal()} 
           onNavigateCatalog={handleNavigateCatalog} 
+          onOpenWhatsApp={handleOpenWhatsApp}
         />
 
         {/* 6. Training Marketplace (AK3U Palembang Featured & Full Course Catalog) */}

@@ -4,9 +4,10 @@ import { motion } from 'motion/react';
 interface CoreServicesProps {
   onRequestProposal: () => void;
   onNavigateCatalog: () => void;
+  onOpenWhatsApp?: (message?: string, title?: string) => void;
 }
 
-export const CoreServices: React.FC<CoreServicesProps> = ({ onRequestProposal, onNavigateCatalog }) => {
+export const CoreServices: React.FC<CoreServicesProps> = ({ onRequestProposal, onNavigateCatalog, onOpenWhatsApp }) => {
   return (
     <section className="w-full py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-surface" id="layanan-inti">
       <div className="max-w-[1280px] mx-auto flex flex-col gap-8 sm:gap-10">
@@ -50,20 +51,28 @@ export const CoreServices: React.FC<CoreServicesProps> = ({ onRequestProposal, o
               </p>
               <ul className="flex flex-col gap-2 font-body-sm text-sm text-on-surface pt-2">
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  Ahli K3 Umum (AK3U) Kemnaker
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Ahli K3 Umum (AK3U) Kemnaker</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  Keselamatan Tambang (SMKP &amp; POP)
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Keselamatan Tambang (SMKP &amp; POP)</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  K3 Rumah Sakit (K3RS Terakreditasi)
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>K3 Rumah Sakit (K3RS Terakreditasi)</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  Training of Trainer (Level 4 &amp; 6)
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Training of Trainer (Level 4 &amp; 6)</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Konsultasi Sistem Manajemen Keselamatan Pertambangan (SMKP)</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Konsultasi Implementasi Food Safety/ Keamanan Pangan berbasis HACCP</span>
                 </li>
               </ul>
             </div>
@@ -100,20 +109,28 @@ export const CoreServices: React.FC<CoreServicesProps> = ({ onRequestProposal, o
               </p>
               <ul className="flex flex-col gap-2 font-body-sm text-sm text-on-surface pt-2">
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  Lisensi Resmi Kemnaker RI
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Lisensi Resmi Kemnaker RI</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  Sertifikasi Ujikom Profesi BNSP
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Sertifikasi Ujikom Profesi BNSP</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  SKP Penunjukan Ahli K3 Perusahaan
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>SKP Penunjukan Ahli K3 Perusahaan</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  Sertifikasi Auditor SMK3 PP 50
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Sertifikasi Auditor SMK3 PP 50</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Konsultasi Sistem Manajemen Keselamatan Pertambangan (SMKP)</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Konsultasi Implementasi Food Safety/ Keamanan Pangan berbasis HACCP</span>
                 </li>
               </ul>
             </div>
@@ -146,32 +163,49 @@ export const CoreServices: React.FC<CoreServicesProps> = ({ onRequestProposal, o
               </p>
               <ul className="flex flex-col gap-2 font-body-sm text-sm text-on-surface pt-2">
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  ISO 9001, 14001, 45001 &amp; 31000
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>ISO 9001, 14001, 45001 &amp; 31000</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  Penyusunan SMK3 PP No. 50/2012
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Penyusunan SMK3 PP No. 50/2012</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  Sistem CSMS &amp; HIRA/HIRADC
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Sistem CSMS &amp; HIRA/HIRADC</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  Pre-Audit &amp; Gap Analysis System
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Pre-Audit &amp; Gap Analysis System</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Konsultasi Sistem Manajemen Keselamatan Pertambangan (SMKP)</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Konsultasi Implementasi Food Safety/ Keamanan Pangan berbasis HACCP</span>
                 </li>
               </ul>
             </div>
             <div className="pt-6 border-t border-outline-variant/40 mt-4">
-              <a 
-                className="font-label-md text-sm font-bold text-primary hover:text-secondary-dark inline-flex items-center gap-1 group-hover:gap-2 transition-all cursor-pointer" 
-                href="https://wa.me/628111595122?text=Halo%20JP%20Solution,%20kami%20memerlukan%20layanan%20Konsultansi%20ISO%20/%20SMK3." 
-                target="_blank"
-                rel="noopener noreferrer"
+              <button 
+                type="button"
+                onClick={() => {
+                  if (onOpenWhatsApp) {
+                    onOpenWhatsApp(
+                      'Halo PT Jaya Pasific Solution, kami memerlukan layanan Konsultansi Sistem Manajemen (ISO / SMK3 / SMKP / HACCP). Mohon informasi proposal dan pendampingannya.',
+                      'Konsultasi Sistem Manajemen (ISO / SMK3 / SMKP / HACCP)'
+                    );
+                  } else {
+                    window.open('https://wa.me/628111595122?text=Halo%20JP%20Solution,%20kami%20memerlukan%20layanan%20Konsultansi%20ISO%20/%20SMK3.', '_blank');
+                  }
+                }}
+                className="font-label-md text-sm font-bold text-primary hover:text-secondary-dark inline-flex items-center gap-1 group-hover:gap-2 transition-all cursor-pointer text-left" 
               >
-                Konsultasi Sistem <span className="material-symbols-outlined text-[18px]">chevron_right</span>
-              </a>
+                <span>Konsultasi Sistem</span>
+                <span className="material-symbols-outlined text-[18px]">chevron_right</span>
+              </button>
             </div>
           </motion.div>
 
@@ -194,20 +228,28 @@ export const CoreServices: React.FC<CoreServicesProps> = ({ onRequestProposal, o
               </p>
               <ul className="flex flex-col gap-2 font-body-sm text-sm text-on-surface pt-2">
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  Simulasi Tanggap Darurat (Damkar/ERP)
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Simulasi Tanggap Darurat (Damkar/ERP)</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  Safety Leadership for Supervisors
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Safety Leadership for Supervisors</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  Penanganan B3 &amp; IMDG Port Code
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Penanganan B3 &amp; IMDG Port Code</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-                  Evaluasi &amp; Kunjungan Lapangan
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Evaluasi &amp; Kunjungan Lapangan</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Konsultasi Sistem Manajemen Keselamatan Pertambangan (SMKP)</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                  <span>Konsultasi Implementasi Food Safety/ Keamanan Pangan berbasis HACCP</span>
                 </li>
               </ul>
             </div>
